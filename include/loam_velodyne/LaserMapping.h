@@ -43,7 +43,7 @@
 #include <sensor_msgs/PointCloud2.h>
 #include <tf/transform_datatypes.h>
 #include <tf/transform_broadcaster.h>
-
+#include <tf/transform_listener.h>
 
 
 namespace loam
@@ -123,12 +123,18 @@ private:
 
 
    nav_msgs::Odometry _odomAftMapped;      ///< mapping odometry message
+   nav_msgs::Odometry _odomAftMappedEnu;      ///< mapping odometry message
    tf::StampedTransform _aftMappedTrans;   ///< mapping odometry transformation
+   tf::StampedTransform _aftMappedTransEnu;   ///< mapping odometry
+   // transformation Enu
 
    ros::Publisher _pubLaserCloudSurround;    ///< map cloud message publisher
    ros::Publisher _pubLaserCloudFullRes;     ///< current full resolution cloud message publisher
    ros::Publisher _pubOdomAftMapped;         ///< mapping odometry publisher
+   ros::Publisher _pubOdomAftMappedEnu;
    tf::TransformBroadcaster _tfBroadcaster;  ///< mapping odometry transform broadcaster
+   tf::TransformListener _tfListener;
+   Eigen::Matrix4d _T_world_cam;
 
    ros::Subscriber _subLaserCloudCornerLast;   ///< last corner cloud message subscriber
    ros::Subscriber _subLaserCloudSurfLast;     ///< last surface cloud message subscriber
